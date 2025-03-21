@@ -14,8 +14,8 @@ variables:
   # Environment name
   environmentName: 'YourLinuxApp'
   
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  # Agent pool name
+  agentPoolName: 'my-personal-computer'  # Use your self-hosted agent pool
   
 stages:
 - stage: Archive
@@ -24,7 +24,7 @@ stages:
   - job: Archive
     displayName: Archive
     pool:
-      vmImage: $(vmImageName)
+      name: $(agentPoolName)  # Use your self-hosted agent pool
     steps:   
     - task: AzureAppServiceSettings@1
       inputs:
@@ -59,7 +59,7 @@ stages:
     displayName: Deploy
     environment: $(environmentName)
     pool: 
-      vmImage: $(vmImageName)
+      name: $(agentPoolName)  # Use your self-hosted agent pool
     strategy:
       runOnce:
         deploy:
